@@ -61,6 +61,19 @@ assets/modid/cutetranslationapi must exist an en_us.json file.
 
 The format of the language file is the same as the vanilla minecraft.
 
+### Code
+To get a string for the default language,  
+please use TranslationProviderManager getOrCreate(modId) method,  
+"modId" indicates the id of the mod to be obtained.  
+Generally, modid indicates the id of your mod.  
+The obtained provider will always provide only the default language.  
+
+To get the language string according to the player settings,  
+please use PlayerTranslationProviderManager getOrCreate(modId) method,  
+"modId" indicates the id of the mod to be obtained.  
+Generally, modid indicates the id of your mod.  
+The obtained provider provides the language based on the player's settings
+
 License
 ----------------
 This project uses Apache License 2.0

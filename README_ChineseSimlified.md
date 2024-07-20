@@ -59,6 +59,17 @@ modImplementation "io.github.gdrfgdrf:cutetranslationapi:VERSION"
 
 语言文件的格式同原版 minecraft.
 
+### 代码
+若要获取默认语言的字符串  
+请使用 TranslationProviderManager 的 getOrCreate(modId) 方法  
+其中 modId 为需要获取的模组，一般为您的模组的id，  
+获取到的 provider 永远只会提供默认语言
+
+若要根据玩家设置获取语言字符串  
+请使用 PlayerTranslationProviderManager 的 getOrCreate(modId) 方法  
+其中 modId 为需要获取的模组，一般为您的模组的id，  
+获取到的 provider 会根据玩家的配置提供语言
+
 协议
 ----------------
 该项目使用 Apache License 2.0 协议
