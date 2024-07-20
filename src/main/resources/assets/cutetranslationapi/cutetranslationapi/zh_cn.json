@@ -1,0 +1,22 @@
+{
+  "command.cutetranslationapi.only_player": "&c该指令仅允许玩家执行",
+  "command.cutetranslationapi.no_permission": "&c您没有权限执行该指令",
+  "command.cutetranslationapi.argument_error": "&c参数错误",
+
+  "command.cutetranslationapi.not_found_game_player": "&c没有在玩家池中找到玩家 %s",
+
+  "command.cutetranslationapi.top": "&l&3=========== &l&6&k| &r&d&lCuteTranslationAPI &l&6&k| &r&l&3===========",
+  "command.cutetranslationapi.bottom": "&l&3=========== &l&6&k| &r&d&lCuteTranslationAPI &l&6&k| &r&l&3===========",
+
+  "command.cutetranslationapi.list_settings": "以下为您当前的语言设置",
+  "command.cutetranslationapi.list_settings_item": " &8- &e%s &a(%s) &8(%s)",
+  "command.cutetranslationapi.not_found_settings": "&c没有找到可用的语言设置",
+
+  "command.cutetranslationapi.not_found_mod": "&c没有找到 Id 为 %s 的模组，可能是该模组没有使用 CuteTranslationAPI",
+  "command.cutetranslationapi.not_found_language": "&c模组 %s 没有语言 %s",
+  "command.cutetranslationapi.set_language_success": "&a已将模组 %s 的语言设置为 %s",
+  "command.cutetranslationapi.load_language_failure": "&c加载模组 %s 的语言 %s 时发生错误",
+
+  "command.cutetranslationapi.save_data_success": "&a语言数据保存成功",
+  "command.cutetranslationapi.save_data_failure": "&c语言数据保存失败，异常已打印至控制台"
+}

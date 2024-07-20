@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package cutetranslationapi.protobuf.common;
+
+option java_package = "cutetranslationapi.protobuf";
+option java_outer_classname = "CommonProto";
+
+message Player {
+    map<string, string> mod_id_to_need_language = 1;
+}

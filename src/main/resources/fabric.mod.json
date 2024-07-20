@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"id": "cutetranslationapi",
+	"version": "${version}",
+	"name": "CuteTranslationAPI",
+	"description": "A library that manages localized strings and lets players switch languages using commands",
+	"authors": [
+		"gdrfgdrf"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "Apache License 2.0",
+	"icon": "assets/cutetranslationapi/icon.png",
+	"environment": "server",
+	"entrypoints": {
+		"main": [
+			{
+				"value": "io.github.gdrfgdrf.cutetranslationapi.CuteTranslationAPI",
+				"adapter": "kotlin"
+			}
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.14.4",
+		"java": ">=8",
+		"fabric": "*",
+		"fabric-language-kotlin": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

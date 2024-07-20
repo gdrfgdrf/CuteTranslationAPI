@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package cutetranslationapi.protobuf.storable;
+
+import "common.proto";
+
+option java_package = "cutetranslationapi.protobuf";
+option java_outer_classname = "StorableProto";
+
+message Store {
+    map<string, common.Player> player_name_to_player = 1;
+}

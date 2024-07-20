@@ -1,0 +1,22 @@
+{
+  "command.cutetranslationapi.only_player": "&cThis command is only player",
+  "command.cutetranslationapi.no_permission": "&cNo permission",
+  "command.cutetranslationapi.argument_error": "&cArgument error",
+
+  "command.cutetranslationapi.not_found_game_player": "&cNot found the player %s in the player pool",
+
+  "command.cutetranslationapi.top": "&l&3=========== &l&6&k| &r&d&lCuteTranslationAPI &l&6&k| &r&l&3===========",
+  "command.cutetranslationapi.bottom": "&l&3=========== &l&6&k| &r&d&lCuteTranslationAPI &l&6&k| &r&l&3===========",
+
+  "command.cutetranslationapi.list_settings": "Below are your current language settings",
+  "command.cutetranslationapi.list_settings_item": " &8- &e%s &a(%s) &8(%s)",
+  "command.cutetranslationapi.not_found_settings": "&cNo available language settings found",
+
+  "command.cutetranslationapi.not_found_mod": "&cA mod with Id %s could not be found, possibly because it does not use CuteTranslationAPI",
+  "command.cutetranslationapi.not_found_language": "&cMod %s does not have language %s",
+  "command.cutetranslationapi.set_language_success": "&aThe language of mod %s has been set to %s",
+  "command.cutetranslationapi.load_language_failure": "&cAn error occurred while loading %s, the language of mod %s",
+
+  "command.cutetranslationapi.save_data_success": "&aLanguage data is saved",
+  "command.cutetranslationapi.save_data_failure": "&aLanguage data is saved, the exception has been printed to the console"
+}
