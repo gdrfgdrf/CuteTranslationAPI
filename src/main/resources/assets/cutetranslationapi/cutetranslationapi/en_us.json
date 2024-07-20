@@ -8,7 +8,7 @@
   "command.cutetranslationapi.top": "&l&3=========== &l&6&k| &r&d&lCuteTranslationAPI &l&6&k| &r&l&3===========",
   "command.cutetranslationapi.bottom": "&l&3=========== &l&6&k| &r&d&lCuteTranslationAPI &l&6&k| &r&l&3===========",
 
-  "command.cutetranslationapi.list_settings": "Below are your current language settings",
+  "command.cutetranslationapi.list_settings": "Below are your current language settings\nThe first item is the current language\nThe second item is the mod id\nThe third item is a note",
   "command.cutetranslationapi.list_settings_item": " &8- &e%s &a(%s) &8(%s)",
   "command.cutetranslationapi.not_found_settings": "&cNo available language settings found",
 

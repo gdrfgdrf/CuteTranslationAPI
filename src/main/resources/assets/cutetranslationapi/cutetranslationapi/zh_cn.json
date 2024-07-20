@@ -8,7 +8,7 @@
   "command.cutetranslationapi.top": "&l&3=========== &l&6&k| &r&d&lCuteTranslationAPI &l&6&k| &r&l&3===========",
   "command.cutetranslationapi.bottom": "&l&3=========== &l&6&k| &r&d&lCuteTranslationAPI &l&6&k| &r&l&3===========",
 
-  "command.cutetranslationapi.list_settings": "以下为您当前的语言设置",
+  "command.cutetranslationapi.list_settings": "以下为您当前的语言设置\n第一项为当前语言\n第二项为模组 id\n第三项为备注",
   "command.cutetranslationapi.list_settings_item": " &8- &e%s &a(%s) &8(%s)",
   "command.cutetranslationapi.not_found_settings": "&c没有找到可用的语言设置",
 
