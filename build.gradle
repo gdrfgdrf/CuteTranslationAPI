@@ -3,6 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id 'fabric-loom' version '1.7-SNAPSHOT'
 	id 'maven-publish'
+	id 'signing'
+	id 'io.github.jeadyx.sonatype-uploader' version '2.7'
 	id "org.jetbrains.kotlin.jvm" version "2.0.0"
 	id 'com.google.protobuf' version '0.9.4'
 }
@@ -66,6 +68,8 @@ tasks.withType(KotlinCompile).all {
 	}
 }
 
+tasks.withType(Javadoc).all { enabled = false }
+
 java {
 	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 	// if it is present.
@@ -80,25 +84,87 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${project.base.archivesName.get()}"}
 	}
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 	from { configurations.compileJar.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
+sonatypeUploader {
+	repositoryPath = "H:\\.m2\\repository"
+	tokenName = nexusUser
+	tokenPasswd = nexusPassword
+
+	signing {
+		keyId = mykeyId
+		keyPasswd = myPassword
+		secretKeyPath = mySecretKeyRingFile
+	}
+
+//	pom = {
+//		name = "CuteTranslationAPI"
+//		description = "Allows the player to choose the language of the mod as needed, it also allows the mod to retrieve language strings based on the player's settings"
+//		url = "https://github.com/gdrfgdrf/CuteTranslationAPI"
+//		licenses {
+//			license {
+//				name = "The Apache License, Version 2.0"
+//				url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+//			}
+//		}
+//		developers {
+//			developer {
+//				name = "gdrfgdrf"
+//				email = "gdrfgdrfgdrfgdrfgdrfgdrf@hotmail.com"
+//			}
+//		}
+//		scm {
+//			url = "https://github.com/gdrfgdrf/CuteTranslationAPI"
+//			connection = "scm:git:https://github.com/gdrfgdrf/CuteTranslationAPI.git"
+//			developerConnection = "scm:git:https://github.com/gdrfgdrf/CuteTranslationAPI.git"
+//		}
+//	}
+
 }
 
 // configure the maven publication
 publishing {
 	publications {
-		create("mavenJava", MavenPublication) {
-			artifactId = project.archives_base_name
+		mavenJava(MavenPublication) {
+//			groupId "io.github.gdrfgdrf.cutetranslationapi"
+//			artifactId "cutetranslationapi"
+//			version project.version
 			from components.java
+
+			pom {
+				name = "cute-translation-api"
+				description = "Allows the player to choose the language of the mod as needed, it also allows the mod to retrieve language strings based on the player's settings"
+				url = "https://github.com/gdrfgdrf/CuteTranslationAPI"
+				licenses {
+					license {
+						name = "The Apache License, Version 2.0"
+						url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+					}
+				}
+				developers {
+					developer {
+						name = "gdrfgdrf"
+						email = "gdrfgdrfgdrfgdrfgdrfgdrf@hotmail.com"
+					}
+				}
+				scm {
+					url = "https://github.com/gdrfgdrf/CuteTranslationAPI"
+					connection = "scm:git:https://github.com/gdrfgdrf/CuteTranslationAPI.git"
+					developerConnection = "scm:git:https://github.com/gdrfgdrf/CuteTranslationAPI.git"
+				}
+			}
 		}
 	}
 
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
 	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
+		mavenLocal()
 	}
+}
+
+signing {
+	sign publishing.publications.mavenJava
 }
 
 sourceSets {
@@ -117,4 +183,9 @@ protobuf {
 
 tasks.withType(Copy).all {
 	duplicatesStrategy 'exclude'
+}
+
+task sourceJar(type: Jar) {
+	from sourceSets.main.allJava
+//	archiveClassifier "sources"
 }
