@@ -8,6 +8,9 @@ import java.util.concurrent.ConcurrentHashMap
 object TranslationProviderManager {
     private val map: ConcurrentHashMap<ModDescription, ExternalTranslationProvider> = ConcurrentHashMap()
 
+    /**
+     * Get the language provider
+     */
     fun getOrCreate(modId: String): ExternalTranslationProvider {
         val modDescription = ModManager.getMod(modId) ?: throw IllegalArgumentException("Unknown mod id $modId")
         if (map.containsKey(modDescription)) {

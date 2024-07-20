@@ -9,6 +9,9 @@ import java.util.concurrent.ConcurrentHashMap
 object PlayerTranslationProviderManager {
     private val map: ConcurrentHashMap<ModDescription, ExternalPlayerTranslationProvider> = ConcurrentHashMap()
 
+    /**
+     * Gets a provider that provides a string based on player settings
+     */
     fun getOrCreate(modId: String): ExternalPlayerTranslationProvider {
         val modDescription = ModManager.getMod(modId) ?: throw IllegalArgumentException("Unknown mod id $modId")
         if (map.containsKey(modDescription)) {
