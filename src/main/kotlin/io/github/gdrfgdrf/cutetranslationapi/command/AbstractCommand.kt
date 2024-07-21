@@ -46,7 +46,7 @@ abstract class AbstractCommand(
             }
 
             if (abstractCommand.needOp && !source.hasPermissionLevel(3)) {
-                "no_permission".toCommandMessage(source.player.name.string).send(commandInvoker)
+                "no_permission".toCommandMessage(source.player?.name?.string!!).send(commandInvoker)
                 return
             }
 
@@ -67,7 +67,7 @@ abstract class AbstractCommand(
             if (commandInvoker.isConsole()) {
                 "argument_error".toCommandMessage().send(commandInvoker)
             } else {
-                "argument_error".toCommandMessage(commandContext.source.player.name.string).send(commandInvoker)
+                "argument_error".toCommandMessage(commandContext.source.player?.name?.string!!).send(commandInvoker)
             }
         }
     }

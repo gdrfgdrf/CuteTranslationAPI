@@ -32,7 +32,7 @@ object SaveDataAdminCommand : AbstractCommand(
                 "save_data_success".toCommandMessage()
                     .send(commandInvoker)
             } else {
-                "save_data_success".toCommandMessage(source.player.name.string)
+                "save_data_success".toCommandMessage(source.player?.name?.string!!)
                     .send(commandInvoker)
             }
         }.onFailure {
@@ -42,7 +42,7 @@ object SaveDataAdminCommand : AbstractCommand(
                 "save_data_failure".toCommandMessage()
                     .send(commandInvoker)
             } else {
-                "save_data_failure".toCommandMessage(source.player.name.string)
+                "save_data_failure".toCommandMessage(source.player?.name?.string!!)
                     .send(commandInvoker)
             }
         }

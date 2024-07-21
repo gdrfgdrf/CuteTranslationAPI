@@ -27,7 +27,7 @@ import io.github.gdrfgdrf.cutetranslationapi.utils.task.TaskManager
 import io.github.gdrfgdrf.cutetranslationapi.utils.thread.ThreadPoolService
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.ModInitializer
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents
 import net.fabricmc.loader.api.FabricLoader
@@ -122,7 +122,7 @@ object CuteTranslationAPI : ModInitializer {
 		val common = LiteralArgumentBuilder.literal<ServerCommandSource>("language")
 		val admin = LiteralArgumentBuilder.literal<ServerCommandSource>("language-admin")
 			.requires {
-				it.player?.allowsPermissionLevel(3) == true
+				it.player?.hasPermissionLevel(3) == true
 			}
 
 		allCommands.forEach { command ->
@@ -149,7 +149,7 @@ object CuteTranslationAPI : ModInitializer {
 		ServerPlayConnectionEvents.DISCONNECT.register { handler, _ ->
 			playerDisconnect(handler)
 		}
-		CommandRegistrationCallback.EVENT.register { dispatcher, _ ->
+		CommandRegistrationCallback.EVENT.register { dispatcher, _, _ ->
 			registerCommand(dispatcher)
 		}
 		ServerLifecycleEvents.SERVER_STARTING.register {
