@@ -1,6 +1,6 @@
 CuteTranslationAPI
 ======================
-[English](https://github.com/gdrfgdrf/CuteTranslationAPI/blob/1.14.4/README.md) | __[简体中文](https://github.com/gdrfgdrf/CuteTranslationAPI/blob/1.14.4/README_ChineseSimplified.md)__  
+[English](https://github.com/gdrfgdrf/CuteTranslationAPI/blob/main/README.md) | __[简体中文](https://github.com/gdrfgdrf/CuteTranslationAPI/blob/main/README_ChineseSimplified.md)__  
 允许玩家根据需要设置模组语言，同时也允许模组根据玩家设置来获取语言字符串
 
 指令
