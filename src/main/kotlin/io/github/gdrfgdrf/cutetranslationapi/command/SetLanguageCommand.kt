@@ -43,7 +43,7 @@ object SetLanguageCommand : AbstractCommand(
     private fun set(source: ServerCommandSource, modId: String, languageName: String) {
         val commandInvoker = CommandInvoker.of(source)
 
-        val playerName = source.player.name.string
+        val playerName = source.player?.name?.string!!
         if (!notBlank(playerName)) {
             return
         }

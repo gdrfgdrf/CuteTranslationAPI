@@ -24,7 +24,7 @@ object ListSettingsCommand : AbstractCommand(
     private fun list(source: ServerCommandSource) {
         val commandInvoker = CommandInvoker.of(source)
 
-        val playerName = source.player.name.string
+        val playerName = source.player?.name?.string!!
         if (!notBlank(playerName)) {
             return
         }

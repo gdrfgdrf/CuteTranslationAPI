@@ -4,7 +4,7 @@ import com.mojang.brigadier.context.CommandContext
 import io.github.gdrfgdrf.cutetranslationapi.CuteTranslationAPI
 import io.github.gdrfgdrf.cutetranslationapi.utils.command.CommandInvoker
 import net.minecraft.server.command.ServerCommandSource
-import net.minecraft.text.LiteralText
+import net.minecraft.text.Text
 
 internal fun String.toCommandMessage(): String {
     return CuteTranslationAPI.externalTranslationProvider?.get("command.cutetranslationapi.$this") ?: ""
@@ -15,7 +15,7 @@ internal fun String.toCommandMessage(playerName: String): String {
 }
 
 internal fun String.send(commandInvoker: CommandInvoker) {
-    commandInvoker.sendMessage(LiteralText(this.replace("&", "§")))
+    commandInvoker.sendMessage(Text.of(this.replace("&", "§")))
 }
 
 internal fun String.getCommandArgument(context: CommandContext<ServerCommandSource>): String {
