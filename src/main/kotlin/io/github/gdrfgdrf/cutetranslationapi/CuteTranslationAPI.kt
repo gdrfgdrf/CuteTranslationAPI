@@ -1,6 +1,7 @@
 package io.github.gdrfgdrf.cutetranslationapi
 
 import com.google.protobuf.Message
+import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import cutetranslationapi.protobuf.StorableProto.Store
 import io.github.gdrfgdrf.cutetranslationapi.command.ListSettingsCommand
@@ -26,12 +27,10 @@ import io.github.gdrfgdrf.cutetranslationapi.utils.task.TaskManager
 import io.github.gdrfgdrf.cutetranslationapi.utils.thread.ThreadPoolService
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.ModInitializer
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents
 import net.fabricmc.loader.api.FabricLoader
 import net.fabricmc.loader.api.ModContainer
 import net.minecraft.server.command.ServerCommandSource
+import net.minecraft.server.network.ServerPlayNetworkHandler
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.io.File
@@ -70,56 +69,43 @@ object CuteTranslationAPI : ModInitializer {
 			load(it)
 		}
 
-		prepareEventListener()
-		prepareCommands()
-
 		PlayerManager.startSaveTask()
 
 		externalTranslationProvider = TranslationProviderManager.getOrCreate(MOD_ID)
 		externalPlayerTranslationProvider = PlayerTranslationProviderManager.getOrCreate(MOD_ID)
 	}
 
-	private fun prepareProtobuf() {
-		PlayerManager.store = prepareProtobufFile(
-			File(Constants.STORE_FILE_PATH),
-			Store.newBuilder()::build,
-			Store::parseFrom
-		)
-	}
+	fun playerJoin(handler: ServerPlayNetworkHandler) {
+		runCoroutineTask {
+			val name = handler.player.name.string
+			val gamePlayer = GamePlayer.create(name)
 
-	private fun prepareEventListener() {
-		ServerPlayConnectionEvents.JOIN.register { handler, _, _ ->
-			runCoroutineTask {
-				val name = handler.player.name.string
-				val gamePlayer = GamePlayer.create(name)
-
-				gamePlayer.initialize()
-				GamePlayerPool.addPlayer(gamePlayer)
-			}
-		}
-
-		ServerPlayConnectionEvents.DISCONNECT.register { handler, _ ->
-			runCoroutineTask {
-				val name = handler.player.name.string
-				GamePlayerPool.removePlayer(name)
-			}
-		}
-
-		ServerLifecycleEvents.SERVER_STARTING.register {
-			TaskManager.start()
-			CountdownTaskManager.start()
-		}
-
-		ServerLifecycleEvents.SERVER_STOPPING.register {
-			PlayerManager.save()
-
-			TaskManager.terminate()
-			ThreadPoolService.terminate()
-			CountdownTaskManager.terminate()
+			gamePlayer.initialize()
+			GamePlayerPool.addPlayer(gamePlayer)
 		}
 	}
 
-	private fun prepareCommands() {
+	fun playerDisconnect(handler: ServerPlayNetworkHandler) {
+		runCoroutineTask {
+			val name = handler.player.name.string
+			GamePlayerPool.removePlayer(name)
+		}
+	}
+
+	fun onServerStarting() {
+		TaskManager.start()
+		CountdownTaskManager.start()
+	}
+
+	fun onServerStopping() {
+		PlayerManager.save()
+
+		TaskManager.terminate()
+		ThreadPoolService.terminate()
+		CountdownTaskManager.terminate()
+	}
+
+	fun registerCommand(dispatcher: CommandDispatcher<ServerCommandSource>) {
 		val allCommands = listOf(
 			ListSettingsCommand,
 			SetLanguageCommand
@@ -128,29 +114,35 @@ object CuteTranslationAPI : ModInitializer {
 			SaveDataAdminCommand
 		)
 
-		CommandRegistrationCallback.EVENT.register { dispatcher, _ ->
-			val common = LiteralArgumentBuilder.literal<ServerCommandSource>("language")
-			val admin = LiteralArgumentBuilder.literal<ServerCommandSource>("language-admin")
-				.requires {
-					it.player?.allowsPermissionLevel(3) == true
-				}
-
-			allCommands.forEach { command ->
-				"Registering command ${command::class.simpleName}".logInfo()
-				command.register(common)
-			}
-			adminCommands.forEach { command ->
-				"Registering admin command ${command::class.simpleName}".logInfo()
-				command.register(admin)
+		val common = LiteralArgumentBuilder.literal<ServerCommandSource>("language")
+		val admin = LiteralArgumentBuilder.literal<ServerCommandSource>("language-admin")
+			.requires {
+				it.player?.allowsPermissionLevel(3) == true
 			}
 
-			dispatcher.register(
-				common
-			)
-			dispatcher.register(
-				admin
-			)
+		allCommands.forEach { command ->
+			"Registering command ${command::class.simpleName}".logInfo()
+			command.register(common)
 		}
+		adminCommands.forEach { command ->
+			"Registering admin command ${command::class.simpleName}".logInfo()
+			command.register(admin)
+		}
+
+		dispatcher.register(
+			common
+		)
+		dispatcher.register(
+			admin
+		)
+	}
+
+	private fun prepareProtobuf() {
+		PlayerManager.store = prepareProtobufFile(
+			File(Constants.STORE_FILE_PATH),
+			Store.newBuilder()::build,
+			Store::parseFrom
+		)
 	}
 
 	private fun load(modContainer: ModContainer) {

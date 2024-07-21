@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.8.5",
+  "package": "io.github.gdrfgdrf.cutetranslationapi.mixin",
+  "server": [
+    "MixinServerPlayNetworkAddon",
+    "MixinServerPlayNetworkHandler",
+    "MixinMinecraftServer",
+    "MixinCommandManager",
+    "MixinMinecraftDedicateServer"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

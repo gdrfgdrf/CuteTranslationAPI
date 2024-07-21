@@ -25,10 +25,12 @@
 	"depends": {
 		"fabricloader": ">=0.15.0",
 		"java": ">=8",
-		"fabric": "*",
 		"fabric-language-kotlin": "*"
 	},
 	"suggests": {
 		"another-mod": "*"
-	}
+	},
+	"mixins": [
+		"cutetranslationapi.mixins.json"
+	]
 }
