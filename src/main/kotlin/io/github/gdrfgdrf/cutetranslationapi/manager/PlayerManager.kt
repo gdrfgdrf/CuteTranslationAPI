@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 
 object PlayerManager {
     var store: Protobuf<Store>? = null
-    private val countdownTask = CountdownTaskManager.CountdownTask.create(5, TimeUnit.MINUTES) {
+    private var countdownTask = CountdownTaskManager.CountdownTask.create(5, TimeUnit.MINUTES) {
         runCatching {
             save()
         }.onFailure {
@@ -28,6 +28,7 @@ object PlayerManager {
     private fun restartSaveTask() {
         countdownTask.end = true
         val copied = countdownTask.copy()
+        countdownTask = copied
         CountdownTaskManager.add(copied)
     }
 
