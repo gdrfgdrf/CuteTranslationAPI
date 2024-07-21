@@ -27,6 +27,9 @@ import io.github.gdrfgdrf.cutetranslationapi.utils.task.TaskManager
 import io.github.gdrfgdrf.cutetranslationapi.utils.thread.ThreadPoolService
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.ModInitializer
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents
 import net.fabricmc.loader.api.FabricLoader
 import net.fabricmc.loader.api.ModContainer
 import net.minecraft.server.command.ServerCommandSource
@@ -73,9 +76,11 @@ object CuteTranslationAPI : ModInitializer {
 
 		externalTranslationProvider = TranslationProviderManager.getOrCreate(MOD_ID)
 		externalPlayerTranslationProvider = PlayerTranslationProviderManager.getOrCreate(MOD_ID)
+
+		prepareEventListener()
 	}
 
-	fun playerJoin(handler: ServerPlayNetworkHandler) {
+	private fun playerJoin(handler: ServerPlayNetworkHandler) {
 		runCoroutineTask {
 			val name = handler.player.name.string
 			val gamePlayer = GamePlayer.create(name)
@@ -85,19 +90,19 @@ object CuteTranslationAPI : ModInitializer {
 		}
 	}
 
-	fun playerDisconnect(handler: ServerPlayNetworkHandler) {
+	private fun playerDisconnect(handler: ServerPlayNetworkHandler) {
 		runCoroutineTask {
 			val name = handler.player.name.string
 			GamePlayerPool.removePlayer(name)
 		}
 	}
 
-	fun onServerStarting() {
+	private fun onServerStarting() {
 		TaskManager.start()
 		CountdownTaskManager.start()
 	}
 
-	fun onServerStopping() {
+	private fun onServerStopping() {
 		PlayerManager.save()
 
 		TaskManager.terminate()
@@ -105,7 +110,7 @@ object CuteTranslationAPI : ModInitializer {
 		CountdownTaskManager.terminate()
 	}
 
-	fun registerCommand(dispatcher: CommandDispatcher<ServerCommandSource>) {
+	private fun registerCommand(dispatcher: CommandDispatcher<ServerCommandSource>) {
 		val allCommands = listOf(
 			ListSettingsCommand,
 			SetLanguageCommand
@@ -135,6 +140,24 @@ object CuteTranslationAPI : ModInitializer {
 		dispatcher.register(
 			admin
 		)
+	}
+
+	private fun prepareEventListener() {
+		ServerPlayConnectionEvents.JOIN.register { handler, _, _ ->
+			playerJoin(handler)
+		}
+		ServerPlayConnectionEvents.DISCONNECT.register { handler, _ ->
+			playerDisconnect(handler)
+		}
+		CommandRegistrationCallback.EVENT.register { dispatcher, _ ->
+			registerCommand(dispatcher)
+		}
+		ServerLifecycleEvents.SERVER_STARTING.register {
+			onServerStarting()
+		}
+		ServerLifecycleEvents.SERVER_STOPPING.register {
+			onServerStopping()
+		}
 	}
 
 	private fun prepareProtobuf() {

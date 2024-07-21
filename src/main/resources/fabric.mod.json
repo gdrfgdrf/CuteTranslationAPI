@@ -29,8 +29,5 @@
 	},
 	"suggests": {
 		"another-mod": "*"
-	},
-	"mixins": [
-		"cutetranslationapi.mixins.json"
-	]
+	}
 }
