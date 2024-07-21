@@ -111,6 +111,8 @@ object CuteTranslationAPI : ModInitializer {
 		}
 
 		ServerLifecycleEvents.SERVER_STOPPING.register {
+			PlayerManager.save()
+
 			TaskManager.terminate()
 			ThreadPoolService.terminate()
 			CountdownTaskManager.terminate()
