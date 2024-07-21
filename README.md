@@ -26,6 +26,17 @@ Root command: /language-admin
 
 The player's language settings are saved every five minutes
 
+Dependencies
+--------------- 
+[Fabric Language Kotlin](https://github.com/FabricMC/fabric-language-kotlin)  
+[Fabric API](https://github.com/FabricMC/fabric)
+
+Project dependencies are as follows
+
+| Dependency                                                      | Use                               |
+|-----------------------------------------------------------------|-----------------------------------|
+| [Protocol Buffers](https://github.com/protocolbuffers/protobuf) | Store player and transaction data |
+
 For developers
 ----------------
 You need to add this mod to your build.gradle.  

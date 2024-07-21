@@ -24,6 +24,17 @@ CuteTranslationAPI
 
 玩家的语言设置每五分钟保存一次
 
+依赖
+--------------- 
+[Fabric Language Kotlin](https://github.com/FabricMC/fabric-language-kotlin)  
+[Fabric API](https://github.com/FabricMC/fabric)
+
+项目依赖如下
+
+| Dependency                                                      | Use                               |
+|-----------------------------------------------------------------|-----------------------------------|
+| [Protocol Buffers](https://github.com/protocolbuffers/protobuf) | Store player and transaction data |
+
 开发
 ----------------
 您需要添加该模组到您的 build.gradle 文件
