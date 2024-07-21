@@ -122,7 +122,7 @@ object CuteTranslationAPI : ModInitializer {
 		val common = LiteralArgumentBuilder.literal<ServerCommandSource>("language")
 		val admin = LiteralArgumentBuilder.literal<ServerCommandSource>("language-admin")
 			.requires {
-				it.player?.allowsPermissionLevel(3) == true
+				it.player?.hasPermissionLevel(3) == true
 			}
 
 		allCommands.forEach { command ->
