@@ -72,6 +72,9 @@ assets/modid/cutetranslationapi must exist an en_us.json file.
 
 The format of the language file is the same as the vanilla minecraft.
 
+Finally, you need to add "cutetranslationapi" to the "depends" key of your fabric.mod.json file,  
+This allows the CuteTranslationAPI to load before your mod loads
+
 ### Code
 To get a string for the default language,  
 please use TranslationProviderManager getOrCreate(modId) method,  
@@ -100,6 +103,9 @@ The obtained provider provides the language based on the player's settings
 
 The version of the game supported by the project corresponds to  
 the version of the game with full support for the Fabric API.
+
+### Wiki
+Check out the GitHub Wiki page
 
 License
 ----------------
