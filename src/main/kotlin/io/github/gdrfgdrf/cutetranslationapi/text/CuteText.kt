@@ -64,7 +64,7 @@ class CuteText private constructor(raw: String, private val formatSymbol: String
     }
 
     fun showText(value: String): CuteText {
-        return showText(MutableText.of(LiteralTextContent(value)))
+        return showText(Text.of(value))
     }
 
     fun showText(value: Text): CuteText {
@@ -143,7 +143,7 @@ class CuteText private constructor(raw: String, private val formatSymbol: String
             return this.text!!
         }
         finalString = replaceFormatSymbol(formatSymbol, finalString)
-        this.text = MutableText.of(LiteralTextContent(finalString))
+        this.text = Text.of(finalString) as MutableText
         val buildStyle = buildStyle()
         this.text!!.styled {
             buildStyle

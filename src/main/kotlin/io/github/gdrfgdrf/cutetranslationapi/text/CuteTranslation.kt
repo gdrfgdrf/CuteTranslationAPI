@@ -1,7 +1,6 @@
 package io.github.gdrfgdrf.cutetranslationapi.text
 
 import net.minecraft.server.network.ServerPlayerEntity
-import net.minecraft.text.LiteralTextContent
 import net.minecraft.text.MutableText
 import net.minecraft.text.Text
 
@@ -61,7 +60,7 @@ class CuteTranslation private constructor() {
             return this.built!!
         }
 
-        this.built = MutableText.of(LiteralTextContent(""))
+        this.built = Text.of("") as MutableText
         if (list.isEmpty()) {
             return this.built!!
         }
