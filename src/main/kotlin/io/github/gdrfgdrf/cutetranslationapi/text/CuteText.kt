@@ -99,7 +99,7 @@ class CuteText private constructor(raw: String, private val formatSymbol: String
 
     fun format(vararg any: Any): CuteText {
         check()
-        finalString = finalString.format(any)
+        finalString = finalString.format(*any)
         return this
     }
 
