@@ -114,7 +114,7 @@ class CuteText private constructor(raw: String, private val formatSymbol: String
             return this.style!!
         }
 
-        this.style = newStyle()
+        this.style = Style.EMPTY
 
         val clickEvent = if (clickAction != null && clickActionValue != null) {
             ClickEvent(clickAction, clickActionValue)
@@ -185,39 +185,6 @@ class CuteText private constructor(raw: String, private val formatSymbol: String
                 .replace(formatSymbol + "n", "§n")
                 .replace(formatSymbol + "o", "§o")
                 .replace(formatSymbol + "r", "§r")
-        }
-
-        fun newStyle(): Style {
-            val constructor = Style::class.java.getDeclaredConstructor(
-                TextColor::class.java,
-                java.lang.Boolean::class.java,
-                java.lang.Boolean::class.java,
-                java.lang.Boolean::class.java,
-                java.lang.Boolean::class.java,
-                java.lang.Boolean::class.java,
-                ClickEvent::class.java,
-                HoverEvent::class.java,
-                java.lang.String::class.java,
-                Identifier::class.java
-            )
-            constructor.isAccessible = true
-
-            val style = constructor.newInstance(
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                Style.DEFAULT_FONT_ID
-            )
-
-            constructor.isAccessible = false
-
-            return style
         }
     }
 }
