@@ -90,6 +90,9 @@ ServerLifecycleEvents.SERVER_STARTING.register { _, ->
 }
 ```
 
+通常，您需要将 CuteTranslationAPI 作为依赖添加到 fabric.mod.json  
+CuteTranslationAPI 的模组 id：cutetranslationapi
+
 该监听器将会在服务器启动时获取语言提供器
 
 ### 代码

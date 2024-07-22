@@ -93,7 +93,10 @@ ServerLifecycleEvents.SERVER_STARTING.register { _, ->
 }
 ```
 
-The listener will get the translation provider when the server starts
+The listener will get the translation provider when the server starts.  
+
+Typically, you need to add the CuteTranslationAPI as a dependency in fabric.mod.json.  
+Mod id of CuteTranslationAPI: cutetranslationapi
 
 ### Code
 To get a string for the default language,  
