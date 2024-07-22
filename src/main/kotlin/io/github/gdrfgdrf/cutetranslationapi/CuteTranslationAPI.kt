@@ -4,6 +4,7 @@ import com.google.protobuf.Message
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import cutetranslationapi.protobuf.StorableProto.Store
+import io.github.gdrfgdrf.cutetranslationapi.command.DevCommand
 import io.github.gdrfgdrf.cutetranslationapi.command.ListSettingsCommand
 import io.github.gdrfgdrf.cutetranslationapi.command.SetLanguageCommand
 import io.github.gdrfgdrf.cutetranslationapi.command.admin.SaveDataAdminCommand
