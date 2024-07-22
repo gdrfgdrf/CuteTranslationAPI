@@ -40,7 +40,7 @@ CuteTranslationAPI
 您需要添加该模组到您的 build.gradle 文件
 
 ```groovy
-modImplementation "io.github.gdrfgdrf:cutetranslationapi:VERSION"
+modImplementation "io.github.gdrfgdrf.cutetranslationapi:cute-translation-api:VERSION"
 ```
 
 然后，您需要添加一个 cutetranslationapi.json 文件到您模组的资源文件夹的根目录

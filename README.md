@@ -42,7 +42,7 @@ For developers
 You need to add this mod to your build.gradle.  
 
 ```groovy
-modImplementation "io.github.gdrfgdrf:cutetranslationapi:VERSION"
+modImplementation "io.github.gdrfgdrf.cutetranslationapi:cute-translation-api:VERSION"
 ```
 
 Then, you need to add a cutetranslationapi.json file to the root of your mod's resource folder.  
