@@ -72,8 +72,28 @@ assets/modid/cutetranslationapi must exist an en_us.json file.
 
 The format of the language file is the same as the vanilla minecraft.
 
-Finally, you need to add "cutetranslationapi" to the "depends" key of your fabric.mod.json file,  
-This allows the CuteTranslationAPI to load before your mod loads
+----
+
+After that, you need to add a piece of code that registers the event listener.
+The content of the listener is the fetch translation provider
+
+#### Java
+```java
+ServerLifecycleEvents.SERVER_STARTING.register { _, ->
+    something = TranslationProviderManager.INSTANCE.getOrCreate("mod id here");
+    something = PlayerTranslationProviderManager.INSTANCE.getOrCreate("mod id here");
+}
+```
+
+#### Kotlin
+```kotlin
+ServerLifecycleEvents.SERVER_STARTING.register { _, ->
+    something = TranslationProviderManager.getOrCreate("mod id here")
+    something = PlayerTranslationProviderManager.getOrCreate("mod id here")
+}
+```
+
+The listener will get the translation provider when the server starts
 
 ### Code
 To get a string for the default language,  

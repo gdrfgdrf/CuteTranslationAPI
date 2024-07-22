@@ -70,8 +70,27 @@ modImplementation "io.github.gdrfgdrf.cutetranslationapi:cute-translation-api:VE
 
 语言文件的格式同原版 minecraft.
 
-最后，您需要在您的 fabric.mod.json 文件的 depends 键中加入 cutetranslationapi，  
-这样才能让 CuteTranslationAPI 先加载
+----
+
+之后，您需要注册一个事件监听器，内容为获取语言提供器
+
+#### Java
+```java
+ServerLifecycleEvents.SERVER_STARTING.register { _, ->
+    something = TranslationProviderManager.INSTANCE.getOrCreate("mod id");
+    something = PlayerTranslationProviderManager.INSTANCE.getOrCreate("mod id");
+}
+```
+
+#### Kotlin
+```kotlin
+ServerLifecycleEvents.SERVER_STARTING.register { _, ->
+    something = TranslationProviderManager.getOrCreate("mod id")
+    something = PlayerTranslationProviderManager.getOrCreate("mod id")
+}
+```
+
+该监听器将会在服务器启动时获取语言提供器
 
 ### 代码
 若要获取默认语言的字符串  
