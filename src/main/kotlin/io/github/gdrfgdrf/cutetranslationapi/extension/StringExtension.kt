@@ -7,11 +7,11 @@ import net.minecraft.server.command.ServerCommandSource
 import net.minecraft.text.LiteralText
 
 internal fun String.toCommandMessage(): String {
-    return CuteTranslationAPI.externalTranslationProvider?.get("command.cutetranslationapi.$this") ?: ""
+    return CuteTranslationAPI.TRANSLATION_PROVIDER?.get("command.cutetranslationapi.$this") ?: ""
 }
 
 internal fun String.toCommandMessage(playerName: String): String {
-    return CuteTranslationAPI.externalPlayerTranslationProvider?.get(playerName, "command.cutetranslationapi.$this") ?: ""
+    return CuteTranslationAPI.PLAYER_TRANSLATION_PROVIDER?.get(playerName, "command.cutetranslationapi.$this") ?: ""
 }
 
 internal fun String.send(commandInvoker: CommandInvoker) {
