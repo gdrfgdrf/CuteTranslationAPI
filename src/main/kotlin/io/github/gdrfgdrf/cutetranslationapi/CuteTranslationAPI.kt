@@ -25,7 +25,6 @@ import io.github.gdrfgdrf.cutetranslationapi.utils.Protobuf
 import io.github.gdrfgdrf.cutetranslationapi.utils.jackson.JacksonUtils
 import io.github.gdrfgdrf.cutetranslationapi.utils.task.TaskManager
 import io.github.gdrfgdrf.cutetranslationapi.utils.thread.ThreadPoolService
-import net.fabricmc.api.EnvType
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
@@ -49,10 +48,6 @@ object CuteTranslationAPI : ModInitializer {
 
 	override fun onInitialize() {
 		val envType = FabricLoader.getInstance().environmentType
-		if (envType == EnvType.CLIENT) {
-			"Environment $envType detected, will not load cute translation api in client side".logInfo()
-			return
-		}
 		"Environment $envType".logInfo()
 
 		prepareProtobuf()
