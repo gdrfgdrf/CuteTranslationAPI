@@ -4,7 +4,6 @@ import com.google.protobuf.Message
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import cutetranslationapi.protobuf.StorableProto.Store
-import io.github.gdrfgdrf.cutetranslationapi.command.DevCommand
 import io.github.gdrfgdrf.cutetranslationapi.command.ListSettingsCommand
 import io.github.gdrfgdrf.cutetranslationapi.command.SetLanguageCommand
 import io.github.gdrfgdrf.cutetranslationapi.command.admin.SaveDataAdminCommand
@@ -45,8 +44,8 @@ object CuteTranslationAPI : ModInitializer {
 	const val LOG_PREFIX = "[CuteTranslationAPI] >> "
     val log: Logger = LogManager.getLogger("CuteTranslationAPI")
 
-	var externalTranslationProvider: ExternalTranslationProvider? = null
-	var externalPlayerTranslationProvider: ExternalPlayerTranslationProvider? = null
+	var TRANSLATION_PROVIDER: ExternalTranslationProvider? = null
+	var PLAYER_TRANSLATION_PROVIDER: ExternalPlayerTranslationProvider? = null
 
 	override fun onInitialize() {
 		val envType = FabricLoader.getInstance().environmentType
@@ -75,8 +74,8 @@ object CuteTranslationAPI : ModInitializer {
 
 		PlayerManager.startSaveTask()
 
-		externalTranslationProvider = TranslationProviderManager.getOrCreate(MOD_ID)
-		externalPlayerTranslationProvider = PlayerTranslationProviderManager.getOrCreate(MOD_ID)
+		TRANSLATION_PROVIDER = TranslationProviderManager.getOrCreate(MOD_ID)
+		PLAYER_TRANSLATION_PROVIDER = PlayerTranslationProviderManager.getOrCreate(MOD_ID)
 
 		prepareEventListener()
 
