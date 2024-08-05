@@ -3,13 +3,9 @@ package io.github.gdrfgdrf.cutetranslationapi.text
 import net.minecraft.text.ClickEvent
 import net.minecraft.text.ClickEvent.Action
 import net.minecraft.text.HoverEvent
-import net.minecraft.text.HoverEvent.EntityContent
-import net.minecraft.text.HoverEvent.ItemStackContent
 import net.minecraft.text.LiteralText
 import net.minecraft.text.Style
 import net.minecraft.text.Text
-import net.minecraft.text.TextColor
-import net.minecraft.util.Identifier
 
 class CuteText private constructor(raw: String, private val formatSymbol: String = "&") {
     private var finalString = raw
@@ -17,7 +13,7 @@ class CuteText private constructor(raw: String, private val formatSymbol: String
     private var clickAction: Action? = null
     private var clickActionValue: String? = null
 
-    private var hoverActionValue: Any? = null
+    private var hoverActionValue: Text? = null
 
     private var style: Style? = null
     private var text: LiteralText? = null
@@ -79,19 +75,19 @@ class CuteText private constructor(raw: String, private val formatSymbol: String
         return this
     }
 
-    fun showItem(value: ItemStackContent): CuteText {
+    fun showItem(value: Text): CuteText {
         check()
         hoverActionValue(value)
         return this
     }
 
-    fun showEntity(value: EntityContent): CuteText {
+    fun showEntity(value: Text): CuteText {
         check()
         hoverActionValue(value)
         return this
     }
 
-    private fun hoverActionValue(value: Any): CuteText {
+    private fun hoverActionValue(value: Text): CuteText {
         check()
         this.hoverActionValue = value
         return this
@@ -114,7 +110,7 @@ class CuteText private constructor(raw: String, private val formatSymbol: String
             return this.style!!
         }
 
-        this.style = Style.EMPTY
+        this.style = Style()
 
         val clickEvent = if (clickAction != null && clickActionValue != null) {
             ClickEvent(clickAction, clickActionValue)
@@ -122,23 +118,15 @@ class CuteText private constructor(raw: String, private val formatSymbol: String
             null
         }
         clickEvent?.let {
-            this.style = this.style!!.withClickEvent(it)
+            this.style!!.setClickEvent(it)
         }
 
         var hoverEvent: HoverEvent? = null
         if (hoverActionValue != null) {
-            if (hoverActionValue is Text) {
-                hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverActionValue as Text)
-            }
-            if (hoverActionValue is ItemStackContent) {
-                hoverEvent = HoverEvent(HoverEvent.Action.SHOW_ITEM, hoverActionValue as ItemStackContent)
-            }
-            if (hoverActionValue is EntityContent) {
-                hoverEvent = HoverEvent(HoverEvent.Action.SHOW_ENTITY, hoverActionValue as EntityContent)
-            }
+            hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverActionValue as Text)
         }
         hoverEvent?.let {
-            this.style = this.style!!.withHoverEvent(it)
+            this.style!!.setHoverEvent(it)
         }
 
         return this.style!!
@@ -151,9 +139,7 @@ class CuteText private constructor(raw: String, private val formatSymbol: String
         finalString = replaceFormatSymbol(formatSymbol, finalString)
         this.text = LiteralText(finalString)
         val buildStyle = buildStyle()
-        this.text!!.styled {
-            buildStyle
-        }
+        this.text!!.setStyle(buildStyle)
 
         return this.text!!
     }

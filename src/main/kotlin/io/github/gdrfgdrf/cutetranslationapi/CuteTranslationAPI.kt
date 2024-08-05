@@ -4,6 +4,7 @@ import com.google.protobuf.Message
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import cutetranslationapi.protobuf.StorableProto.Store
+import io.github.gdrfgdrf.cutetranslationapi.command.DevCommand
 import io.github.gdrfgdrf.cutetranslationapi.command.ListSettingsCommand
 import io.github.gdrfgdrf.cutetranslationapi.command.SetLanguageCommand
 import io.github.gdrfgdrf.cutetranslationapi.command.admin.SaveDataAdminCommand
@@ -25,6 +26,7 @@ import io.github.gdrfgdrf.cutetranslationapi.utils.Protobuf
 import io.github.gdrfgdrf.cutetranslationapi.utils.jackson.JacksonUtils
 import io.github.gdrfgdrf.cutetranslationapi.utils.task.TaskManager
 import io.github.gdrfgdrf.cutetranslationapi.utils.thread.ThreadPoolService
+import net.fabricmc.api.EnvType
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
@@ -106,7 +108,8 @@ object CuteTranslationAPI : ModInitializer {
 	private fun registerCommand(dispatcher: CommandDispatcher<ServerCommandSource>) {
 		val allCommands = listOf(
 			ListSettingsCommand,
-			SetLanguageCommand
+			SetLanguageCommand,
+			DevCommand
 		)
 		val adminCommands = listOf(
 			SaveDataAdminCommand
@@ -115,7 +118,7 @@ object CuteTranslationAPI : ModInitializer {
 		val common = LiteralArgumentBuilder.literal<ServerCommandSource>("language")
 		val admin = LiteralArgumentBuilder.literal<ServerCommandSource>("language-admin")
 			.requires {
-				it.player?.hasPermissionLevel(3) == true
+				it.player?.allowsPermissionLevel(3) == true
 			}
 
 		allCommands.forEach { command ->

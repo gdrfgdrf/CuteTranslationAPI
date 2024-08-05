@@ -21,15 +21,15 @@ object DevCommand : AbstractCommand(
     private fun dev(source: ServerCommandSource) {
         val cuteTranslation = CuteTranslation.build("&a&ltest1", " &c&ltest2", " &e&l你好世界")
         cuteTranslation.get(0)
-            .runCommand("/w ${source.player.name.string} \"Hello World test1\"")
+            .runCommand("/w ${source.player?.name?.string} \"Hello World test1\"")
             .showText("test1")
         cuteTranslation.get(1)
-            .runCommand("/w ${source.player.name.string} \"Hello World test2\"")
+            .runCommand("/w ${source.player?.name?.string} \"Hello World test2\"")
             .showText("test2")
         cuteTranslation.get(2)
-            .runCommand("/w ${source.player.name.string} \"Hello World test3\"")
+            .runCommand("/w ${source.player?.name?.string} \"Hello World test3\"")
             .showText("test3")
-        cuteTranslation.send(source.player)
+        cuteTranslation.send(source.player!!)
     }
 
 }

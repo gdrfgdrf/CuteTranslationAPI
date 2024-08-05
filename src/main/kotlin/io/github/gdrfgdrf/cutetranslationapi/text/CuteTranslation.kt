@@ -77,7 +77,7 @@ class CuteTranslation private constructor() {
 
     fun send(serverPlayerEntity: ServerPlayerEntity) {
         val text = build()
-        serverPlayerEntity.sendMessage(text, false)
+        serverPlayerEntity.sendMessage(text)
     }
 
     companion object {

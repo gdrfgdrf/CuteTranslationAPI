@@ -8,7 +8,7 @@ import net.minecraft.text.Text
 class CommandInvoker private constructor(private val source: ServerCommandSource) {
     fun sendMessage(text: Text) {
         if (!isConsole() && source.entity is ServerPlayerEntity) {
-            (source.entity as ServerPlayerEntity).sendMessage(text, false)
+            (source.entity as ServerPlayerEntity).sendMessage(text)
             return
         }
         text.string.logInfo()
