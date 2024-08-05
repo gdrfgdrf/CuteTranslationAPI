@@ -74,6 +74,9 @@ object CuteTranslationAPI : ModInitializer {
 		PLAYER_TRANSLATION_PROVIDER = PlayerTranslationProviderManager.getOrCreate(MOD_ID)
 
 		prepareEventListener()
+
+		TaskManager.start()
+		CountdownTaskManager.start()
 	}
 
 	private fun playerJoin(handler: ServerPlayNetworkHandler) {
@@ -91,11 +94,6 @@ object CuteTranslationAPI : ModInitializer {
 			val name = handler.player.name.string
 			GamePlayerPool.removePlayer(name)
 		}
-	}
-
-	private fun onServerStarting() {
-		TaskManager.start()
-		CountdownTaskManager.start()
 	}
 
 	private fun onServerStopping() {
@@ -147,9 +145,6 @@ object CuteTranslationAPI : ModInitializer {
 		}
 		CommandRegistrationCallback.EVENT.register { dispatcher, _, _ ->
 			registerCommand(dispatcher)
-		}
-		ServerLifecycleEvents.SERVER_STARTING.register {
-			onServerStarting()
 		}
 		ServerLifecycleEvents.SERVER_STOPPING.register {
 			onServerStopping()
